@@ -27,6 +27,7 @@ import KeyLayout from "./KeyLayout";
 
 import "./keymap.css";
 import DisplayTransformer from "./keymap-transformer";
+import ErrorMessages from "../errors/errors";
 
 class App extends React.Component {
   focus = new Focus();
@@ -68,9 +69,12 @@ class App extends React.Component {
     this.focus.close();
     this.focus.open(Model01).then(port => {
       this.setState({ device: port });
+        console.log('device', device);
       this.focus.command("keymap").then(keymap => {
         this.setState({ keymap: keymap });
       });
+    }).catch((error) => {
+        console.log(ErrorMessages.firmware)
     });
   }
 
